@@ -2,15 +2,25 @@ class AlertService:
 
     @staticmethod
     def generate_alert(row):
+
         alerts = []
 
         if row["temperature"] > 90:
-            alerts.append("High temperature detected")
+            alerts.append({
+                "type": "TEMPERATURE",
+                "severity": "HIGH"
+            })
 
         if row["vibration"] > 85:
-            alerts.append("Abnormal vibration level")
+            alerts.append({
+                "type": "VIBRATION",
+                "severity": "MEDIUM"
+            })
 
         if row["oil_particles"] > 50:
-            alerts.append("Metal particles detected in oil")
+            alerts.append({
+                "type": "OIL_CONTAMINATION",
+                "severity": "HIGH"
+            })
 
         return alerts

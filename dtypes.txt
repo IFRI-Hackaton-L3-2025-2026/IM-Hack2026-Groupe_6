@@ -1,0 +1,16 @@
+,0
+machine_id,str
+machine_type,str
+timestamp,str
+maintenance_age_days,int64
+vib_mean,float64
+vib_std,float64
+vib_rms,float64
+temp_mean,float64
+temp_max,float64
+current_mean,float64
+current_peak,float64
+acoustic_energy,float64
+rpm_mean,float64
+oil_particle_count,float64
+failure_next_24h,int64

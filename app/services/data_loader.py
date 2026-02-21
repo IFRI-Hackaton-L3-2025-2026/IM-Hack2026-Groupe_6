@@ -3,6 +3,14 @@ import pandas as pd
 class DataLoader:
     def __init__(self, path: str):
         self.df = pd.read_csv(path, parse_dates=["timestamp"])
+        
+        # 🔹 Renommage des colonnes pour correspondre au code existant
+        rename_map = {
+            "temp_mean": "temperature",
+            "vib_mean": "vibration",
+            "oil_particle_count": "oil_particles"
+        }
+        self.df = self.df.rename(columns=rename_map)
     
     def get_all(self):
         return self.df
