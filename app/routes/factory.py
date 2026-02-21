@@ -3,21 +3,21 @@ import pandas as pd
 from app.services.data_loader import DataLoader
 from datetime import datetime
 
-router = APIRouter(prefix="/factory", tags=["Factory"])
+router = APIRouter(prefix="/factory", tags=["Usine (Factory)"])
 
 data_loader = DataLoader("data/dataset.csv")
 
 
 # 🔹 Snapshot temps réel (simulation)
-@router.get("/realtime")
+@router.get("/realtime", summary="Aperçu en temps réel", description="Récupère la dernière ligne de données pour simuler un flux en direct.")
 def realtime_snapshot():
     df = data_loader.get_all().tail(1)
     return df.to_dict(orient="records")
 
 
 # 🔹 ROUTE HISTORIQUE 
-@router.get("/history")
-def get_history(date: str = Query(..., description="Format: YYYY-MM-DD")):
+@router.get("/history", summary="Historique des données", description="Récupère les données pour une date spécifique au format AAAA-MM-JJ.")
+def get_history(date: str = Query(..., description="Format: AAAA-MM-JJ")):
 
     df = data_loader.get_all()
 
@@ -40,7 +40,7 @@ def get_history(date: str = Query(..., description="Format: YYYY-MM-DD")):
 
     return filtered.to_dict(orient="records")
 
-@router.get("/kpis")
+@router.get("/kpis", summary="Indicateurs de Performance (KPIs)", description="Calcule les statistiques globales de l'usine (machines actives, en panne, température moyenne).")
 def get_kpis():
 
     df = data_loader.get_all().tail(200)
@@ -66,7 +66,7 @@ def get_kpis():
         "most_critical_machine": most_critical
     }
 
-@router.get("/top-critical")
+@router.get("/top-critical", summary="Top 5 des machines critiques", description="Identifie les 5 machines ayant le score de criticité le plus élevé.")
 def top_critical():
 
     df = data_loader.get_all().tail(500)

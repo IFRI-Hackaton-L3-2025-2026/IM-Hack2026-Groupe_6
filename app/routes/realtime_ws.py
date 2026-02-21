@@ -3,11 +3,15 @@ import asyncio
 import random
 from datetime import datetime
 
-router = APIRouter()
+router = APIRouter(tags=["Flux Temps Réel"])
 
 
 @router.websocket("/ws/realtime")
 async def websocket_realtime(websocket: WebSocket):
+    """
+    Diffuse des données capteurs simulées en temps réel via WebSocket.
+    Frequence: 1 message toutes les 2 secondes.
+    """
 
     await websocket.accept()
 
