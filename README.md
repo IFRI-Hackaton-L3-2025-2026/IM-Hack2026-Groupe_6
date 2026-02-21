@@ -1,4 +1,5 @@
 # AI4BMI - Plateforme de Maintenance Prédictive
+# IM-Hack2026-Groupe_6
 
 Bienvenue sur le dépôt du projet **AI4BMI**, une solution backend de maintenance prédictive pour l'industrie, développée par le groupe **IM-Hack2026-Groupe_6**.
 
