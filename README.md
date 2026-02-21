@@ -3,11 +3,11 @@
 
 Bienvenue sur le dépôt du projet **AI4BMI**, une solution backend de maintenance prédictive pour l'industrie, développée par le groupe **IM-Hack2026-Groupe_6**.
 
-## 🚀 À propos du projet
+##  À propos du projet
 
 Cette plateforme est conçue pour surveiller l'état de santé des machines industrielles en temps réel. Elle exploite des données de capteurs pour prédire les pannes potentielles et optimiser les interventions de maintenance.
 
-## 🛠️ Stack Technique & Packages
+##  Stack Technique & Packages
 
 Le projet utilise les packages Python suivants (voir `requirements.txt`) :
 - **FastAPI** : Framework web haute performance.
@@ -15,7 +15,7 @@ Le projet utilise les packages Python suivants (voir `requirements.txt`) :
 - **Pandas** : Manipulation et analyse de données.
 - **WebSockets** : Pour la diffusion de données en temps réel.
 
-## 📌 Fonctionnalités de l'App
+##  Fonctionnalités de l'App
 
 L'API de **IM-Hack2026-Groupe_6** propose :
 
@@ -25,7 +25,7 @@ L'API de **IM-Hack2026-Groupe_6** propose :
 - **Analytics** (`/analytics`) : Analyse des tendances et prédictions.
 - **Flux Temps Réel** : Connexion via WebSocket pour un monitoring continu.
 
-## 📥 Installation
+##  Installation
 
 1. **Clonage du projet :**
 ```bash
@@ -40,7 +40,7 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-## 🏃 Lancement
+##  Lancement
 
 Démarrez l'application avec :
 ```bash
