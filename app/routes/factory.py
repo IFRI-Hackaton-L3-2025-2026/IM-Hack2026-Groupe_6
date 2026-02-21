@@ -2,11 +2,11 @@ from fastapi import APIRouter, HTTPException, Query
 import pandas as pd
 from app.services.data_loader import DataLoader
 from datetime import datetime
+from app.services.prediction_service import PredictionService
 
 router = APIRouter(prefix="/factory", tags=["Usine (Factory)"])
 
 data_loader = DataLoader("data/dataset.csv")
-
 
 # 🔹 Snapshot temps réel (simulation)
 @router.get("/realtime", summary="Aperçu en temps réel", description="Récupère la dernière ligne de données pour simuler un flux en direct.")
@@ -15,9 +15,12 @@ def realtime_snapshot():
     return df.to_dict(orient="records")
 
 
-# 🔹 ROUTE HISTORIQUE 
-@router.get("/history", summary="Historique des données", description="Récupère les données pour une date spécifique au format AAAA-MM-JJ.")
-def get_history(date: str = Query(..., description="Format: AAAA-MM-JJ")):
+# 🔹 ROUTE HISTORIQUE ET PRÉDICTIVE
+@router.get("/history", summary="Historique et Prédiction", description="Récupère les données pour une date spécifique. Si la date est future, simule une prédiction.")
+def get_history(
+    date: str = Query(..., description="Format: AAAA-MM-JJ"),
+    machine_id: str = Query(None, description="ID optionnel de la machine pour filtrer ou prédire")
+):
 
     df = data_loader.get_all()
 
@@ -25,20 +28,44 @@ def get_history(date: str = Query(..., description="Format: AAAA-MM-JJ")):
     df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
 
     try:
-        selected_date = datetime.strptime(date, "%Y-%m-%d").date()
+        selected_date = datetime.strptime(date, "%Y-%m-%d")
     except ValueError:
         raise HTTPException(
             status_code=400,
             detail="Invalid date format. Use YYYY-MM-DD"
         )
 
+    max_date = df["timestamp"].max()
+
+    # 🔹 Détection si la date est future
+    if selected_date > max_date:
+        if machine_id:
+            # Prédiction pour une machine spécifique
+            machine_row = df[df["machine_id"] == machine_id]
+            if machine_row.empty:
+                raise HTTPException(status_code=404, detail=f"Machine {machine_id} non trouvée")
+            
+            machine_type = machine_row.iloc[0]["machine_type"]
+            prediction = PredictionService.predict_machine_data(machine_id, machine_type, selected_date, df)
+            return prediction
+        else:
+            # Prédiction globale (message informatif car format multi-machine complexe)
+            return {
+                "message": "La date demandée est future. Veuillez spécifier un machine_id pour obtenir une prédiction précise.",
+                "max_dataset_date": max_date.strftime("%Y-%m-%d")
+            }
+
     # 🔹 Filtrage par date uniquement
-    filtered = df[df["timestamp"].dt.date == selected_date]
+    filtered = df[df["timestamp"].dt.date == selected_date.date()]
+    
+    if machine_id:
+        filtered = filtered[filtered["machine_id"] == machine_id]
 
     if filtered.empty:
         return {"message": "No data found for this date"}
 
     return filtered.to_dict(orient="records")
+
 
 @router.get("/kpis", summary="Indicateurs de Performance (KPIs)", description="Calcule les statistiques globales de l'usine (machines actives, en panne, température moyenne).")
 def get_kpis():
