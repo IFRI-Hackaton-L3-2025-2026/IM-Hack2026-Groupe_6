@@ -3,6 +3,7 @@ import PageMeta from "../components/common/PageMeta";
 import { api } from "../API/api";
 import flatpickr from "flatpickr";
 import { CalenderIcon } from "../icons";
+import { useSearchParams } from "react-router";
 import {
     Table, TableBody, TableCell, TableHeader, TableRow,
 } from "../components/ui/table";
@@ -18,13 +19,26 @@ function classify(temp: number): { color: "success" | "warning" | "error"; label
 }
 
 export default function History() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const queryMachineId = searchParams.get("machine_id") || "";
+
     const [date, setDate] = useState<string>("");
-    const [machineId, setMachineId] = useState<string>("");
+    const [machineId, setMachineId] = useState<string>(queryMachineId);
     const [historyData, setHistoryData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState<string | null>(null);
     const [isPrediction, setIsPrediction] = useState(false);
     const datePickerRef = useRef<HTMLInputElement>(null);
+
+    // Sync state if URL changes directly
+    useEffect(() => {
+        if (queryMachineId !== machineId) {
+            setMachineId(queryMachineId);
+        }
+    }, [queryMachineId]);
+
+    // Update URL when state changes (debounced or just on enter/change)
+    // For now, let's just make it react to the URL for the header search
 
     // ── Initialise flatpickr ──────────────────────────────────────────────────
     useEffect(() => {
@@ -36,9 +50,10 @@ export default function History() {
                 if (selectedDates.length > 0) {
                     const d = selectedDates[0].toISOString().split("T")[0];
                     setDate(d);
+                } else {
+                    setDate("");
                 }
             },
-            onClear: () => setDate(""),
         });
         return () => fp.destroy();
     }, []);
@@ -144,6 +159,7 @@ export default function History() {
                                 onClick={() => {
                                     setMachineId("");
                                     setDate("");
+                                    setSearchParams({}); // Clear from URL too
                                     if (datePickerRef.current) {
                                         // Clear flatpickr
                                         (datePickerRef.current as any)._flatpickr?.clear();

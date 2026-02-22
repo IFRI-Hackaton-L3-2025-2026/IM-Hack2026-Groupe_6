@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router";
 import NotFound from "./pages/OtherPage/NotFound";
-import UserProfiles from "./pages/UserProfiles";
+
 import AlertsPage from "./pages/Alerts";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
@@ -22,7 +22,7 @@ export default function App() {
             <Route path="/history" element={<History />} />
             <Route path="/alerts" element={<AlertsPage />} />
             <Route path="/analytics" element={<Analytics />} />
-            <Route path="/profile" element={<UserProfiles />} />
+
           </Route>
 
           {/* Fallback Route */}
