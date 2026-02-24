@@ -26,7 +26,7 @@ interface AlertUI {
 export default function NotificationDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [uiAlerts, setUiAlerts] = useState<AlertUI[]>([]);
-  const [hasNewHighAlert, setHasNewHighAlert] = useState(false);
+  const [hasNewAlerts, setHasNewAlerts] = useState(false);
 
   const fetchAlerts = async () => {
     try {
@@ -62,8 +62,9 @@ export default function NotificationDropdown() {
           });
         });
 
-        setUiAlerts(flattened.slice(0, 10));
-        setHasNewHighAlert(flattened.some(a => a.severity === "HIGH"));
+        const newAlerts = flattened.slice(0, 10);
+        setUiAlerts(newAlerts);
+        if (newAlerts.length > 0) setHasNewAlerts(true);
       }
     } catch (error) {
       console.error("Failed to fetch notification alerts", error);
@@ -78,26 +79,38 @@ export default function NotificationDropdown() {
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
-    if (!isOpen) {
-      setHasNewHighAlert(false);
-    }
+    // Mark as "seen" when opening the dropdown
+    if (!isOpen) setHasNewAlerts(false);
   }
 
   function closeDropdown() {
     setIsOpen(false);
   }
 
+  const highCount = uiAlerts.filter(a => a.severity === "HIGH").length;
+
   return (
     <div className="relative">
       <button
         className="relative flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-full dropdown-toggle hover:text-gray-700 h-11 w-11 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
         onClick={toggleDropdown}
+        aria-label="Notifications"
       >
-        {hasNewHighAlert && (
-          <span className="absolute right-0 top-0.5 z-10 h-2 w-2 rounded-full bg-red-500">
-            <span className="absolute inline-flex w-full h-full bg-red-500 rounded-full opacity-75 animate-ping"></span>
+        {/* Notification counter badge */}
+        {uiAlerts.length > 0 && (
+          <span
+            className={`absolute -right-1 -top-1 z-10 flex h-5 min-w-5 items-center justify-center rounded-full bg-error-500 px-1 text-[10px] font-bold text-white ring-2 ring-white dark:ring-gray-900 transition-transform ${hasNewAlerts ? "animate-bounce" : ""
+              }`}
+          >
+            {uiAlerts.length > 99 ? "99+" : uiAlerts.length}
           </span>
         )}
+
+        {/* Glowing ring when new alerts */}
+        {hasNewAlerts && uiAlerts.length > 0 && (
+          <span className="absolute inset-0 rounded-full animate-ping bg-error-400/20 pointer-events-none" />
+        )}
+
         <svg
           className="fill-current"
           width="20"
@@ -123,8 +136,15 @@ export default function NotificationDropdown() {
           <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
             Alertes Critiques
           </h5>
-          <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-            {uiAlerts.filter(a => a.severity === "HIGH").length} Urgent
+          <span className="flex items-center gap-1.5">
+            {highCount > 0 && (
+              <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase dark:bg-red-500/10 dark:text-red-400">
+                {highCount} Urgent
+              </span>
+            )}
+            <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">
+              {uiAlerts.length} Total
+            </span>
           </span>
         </div>
 
@@ -137,7 +157,7 @@ export default function NotificationDropdown() {
                   className="flex gap-3 rounded-lg border-b border-gray-100 p-3 px-4.5 py-3 hover:bg-gray-100 dark:border-gray-800 dark:hover:bg-white/5"
                   to={`/history?machine_id=${alert.machine_id}`}
                 >
-                  <div className={`flex items-center justify-center shrink-0 w-10 h-10 rounded-full ${alert.severity === "HIGH" ? "bg-red-100 text-red-600" : "bg-yellow-100 text-yellow-600"
+                  <div className={`flex items-center justify-center shrink-0 w-10 h-10 rounded-full ${alert.severity === "HIGH" ? "bg-red-100 text-red-600 dark:bg-red-500/10 dark:text-red-400" : "bg-yellow-100 text-yellow-600 dark:bg-yellow-500/10 dark:text-yellow-400"
                     }`}>
                     {alert.type.includes("TEMPÉRATURE") ? "🌡️" : alert.type.includes("VIBRATION") ? "📳" : "⚠️"}
                   </div>
@@ -154,12 +174,12 @@ export default function NotificationDropdown() {
                     </span>
 
                     <div className="flex items-center gap-2 mt-1 whitespace-nowrap overflow-hidden">
-                      <span className={`text-[10px] font-bold px-1 rounded ${alert.severity === "HIGH" ? "text-red-600 bg-red-50" : "text-yellow-600 bg-yellow-50"
+                      <span className={`text-[10px] font-bold px-1 rounded ${alert.severity === "HIGH" ? "text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-500/10" : "text-yellow-600 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-500/10"
                         }`}>
                         {alert.severity}
                       </span>
-                      <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                      <span className="text-[10px] text-gray-400">
+                      <span className="w-1 h-1 bg-gray-300 rounded-full dark:bg-gray-600"></span>
+                      <span className="text-[10px] text-gray-400 dark:text-gray-500">
                         {new Date(alert.timestamp).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
                       </span>
                     </div>
@@ -170,7 +190,7 @@ export default function NotificationDropdown() {
           ) : (
             <div className="flex flex-col items-center justify-center h-full py-10 opacity-50">
               <span className="text-3xl mb-2">✅</span>
-              <p className="text-sm">Aucune alerte en attente</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Aucune alerte en attente</p>
             </div>
           )}
         </ul>
@@ -178,7 +198,7 @@ export default function NotificationDropdown() {
         <Link
           to="/alerts"
           onClick={closeDropdown}
-          className="block px-4 py-2 mt-3 text-sm font-medium text-center text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+          className="block px-4 py-2 mt-3 text-sm font-medium text-center text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors"
         >
           Voir toutes les alertes
         </Link>
