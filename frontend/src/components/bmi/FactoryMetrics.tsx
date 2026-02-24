@@ -37,57 +37,57 @@ export default function FactoryMetrics() {
     if (!kpis) return null;
 
     return (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:gap-4 h-24">
             {/* Total Machines */}
-            <div className="rounded-xl glass-card p-4">
-                <div className="flex items-center justify-center w-9 h-9 bg-blue-100 rounded-lg dark:bg-blue-900/20">
-                    <BoxCubeIcon className="text-blue-600 size-4 dark:text-blue-400" />
+            <div className="rounded-xl glass-card px-4 py-2 flex items-center gap-4">
+                <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-lg dark:bg-blue-900/20 shrink-0">
+                    <BoxCubeIcon className="text-blue-600 size-5 dark:text-blue-400" />
                 </div>
-                <div className="mt-3">
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Total Machines</p>
-                    <p className="mt-1 text-2xl font-bold text-gray-800 dark:text-white/90">{kpis.total_machines}</p>
+                <div>
+                    <p className="text-[10px] uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">Total</p>
+                    <p className="text-xl font-bold text-gray-800 dark:text-white/90 leading-tight">{kpis.total_machines}</p>
                 </div>
             </div>
 
             {/* Active */}
-            <div className="rounded-xl glass-card p-4">
-                <div className="flex items-center justify-center w-9 h-9 bg-green-100 rounded-lg dark:bg-green-900/20">
-                    <GroupIcon className="text-green-600 size-4 dark:text-green-400" />
+            <div className="rounded-xl glass-card px-4 py-2 flex items-center gap-4">
+                <div className="flex items-center justify-center w-10 h-10 bg-green-100 rounded-lg dark:bg-green-900/20 shrink-0">
+                    <GroupIcon className="text-green-600 size-5 dark:text-green-400" />
                 </div>
-                <div className="mt-3 flex items-end justify-between">
-                    <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Machines Actives</p>
-                        <p className="mt-1 text-2xl font-bold text-gray-800 dark:text-white/90">{kpis.active}</p>
+                <div>
+                    <p className="text-[10px] uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">Actives</p>
+                    <div className="flex items-center gap-2">
+                        <p className="text-xl font-bold text-gray-800 dark:text-white/90 leading-tight">{kpis.active}</p>
+                        <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
                     </div>
-                    <Badge color="success" size="sm">Opérationnel</Badge>
                 </div>
             </div>
 
             {/* Maintenance */}
-            <div className="rounded-xl glass-card p-4">
-                <div className="flex items-center justify-center w-9 h-9 bg-yellow-100 rounded-lg dark:bg-yellow-900/20">
-                    <BoxIconLine className="text-yellow-600 size-4 dark:text-yellow-400" />
+            <div className="rounded-xl glass-card px-4 py-2 flex items-center gap-4">
+                <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg dark:bg-yellow-900/20 shrink-0">
+                    <BoxIconLine className="text-yellow-600 size-5 dark:text-yellow-400" />
                 </div>
-                <div className="mt-3 flex items-end justify-between">
-                    <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">En Maintenance</p>
-                        <p className="mt-1 text-2xl font-bold text-gray-800 dark:text-white/90">{kpis.maintenance}</p>
+                <div>
+                    <p className="text-[10px] uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">Maintenance</p>
+                    <div className="flex items-center gap-2">
+                        <p className="text-xl font-bold text-gray-800 dark:text-white/90 leading-tight">{kpis.maintenance}</p>
+                        <div className="h-1.5 w-1.5 rounded-full bg-yellow-500 animate-pulse" />
                     </div>
-                    <Badge color="warning" size="sm">Attention</Badge>
                 </div>
             </div>
 
             {/* Failure */}
-            <div className="rounded-xl glass-card p-4">
-                <div className="flex items-center justify-center w-9 h-9 bg-red-100 rounded-lg dark:bg-red-900/20">
-                    <BoxIconLine className="text-red-600 size-4 dark:text-red-400" />
+            <div className="rounded-xl glass-card px-4 py-2 flex items-center gap-4">
+                <div className="flex items-center justify-center w-10 h-10 bg-red-100 rounded-lg dark:bg-red-900/20 shrink-0">
+                    <BoxIconLine className="text-red-600 size-5 dark:text-red-400" />
                 </div>
-                <div className="mt-3 flex items-end justify-between">
-                    <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">En Panne</p>
-                        <p className="mt-1 text-2xl font-bold text-gray-800 dark:text-white/90">{kpis.failure}</p>
+                <div>
+                    <p className="text-[10px] uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400">Pannes</p>
+                    <div className="flex items-center gap-2">
+                        <p className="text-xl font-bold text-gray-800 dark:text-white/90 leading-tight">{kpis.failure}</p>
+                        <div className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
                     </div>
-                    <Badge color="error" size="sm">Critique</Badge>
                 </div>
             </div>
         </div>
