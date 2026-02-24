@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Thermometer, Zap, Activity, Cpu } from "lucide-react";
+import { X, Thermometer, Zap, Activity, Cpu, type LucideIcon } from "lucide-react";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -35,7 +35,7 @@ interface MetricBarProps {
     value: number;
     unit: string;
     max: number;
-    Icon: React.ElementType;
+    Icon: LucideIcon;
     variant?: 'default' | 'warning' | 'danger';
 }
 

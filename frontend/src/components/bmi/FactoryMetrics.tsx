@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../API/api";
 import { BoxIconLine, GroupIcon, BoxCubeIcon } from "../../icons";
-import Badge from "../ui/badge/Badge";
+
 
 interface KPIs {
     total_machines: number;
