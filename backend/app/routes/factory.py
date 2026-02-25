@@ -1,12 +1,10 @@
 from fastapi import APIRouter, HTTPException, Query
 import pandas as pd
-from app.services.data_loader import DataLoader
+from app.shared import data_loader
 from datetime import datetime
 from app.services.prediction_service import PredictionService
 
 router = APIRouter(prefix="/factory", tags=["Usine (Factory)"])
-
-data_loader = DataLoader("data/dataset.csv")
 
 # 🔹 Snapshot temps réel (simulation)
 @router.get("/realtime", summary="Aperçu en temps réel", description="Récupère la dernière ligne de données pour simuler un flux en direct.")

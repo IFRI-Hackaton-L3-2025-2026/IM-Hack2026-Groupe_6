@@ -1,10 +1,8 @@
 from fastapi import APIRouter
-from app.services.data_loader import DataLoader
+from app.shared import data_loader
 from app.services.analytics_service import AnalyticsService
 
 router = APIRouter(prefix="/analytics", tags=["Analytique Avancée"])
-
-data_loader = DataLoader("data/dataset.csv")
 
 
 # 🔹 KPI GLOBAL

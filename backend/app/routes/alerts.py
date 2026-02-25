@@ -1,9 +1,8 @@
 from fastapi import APIRouter
 from app.services.alert_service import AlertService
-from app.services.data_loader import DataLoader
+from app.shared import data_loader
 
 router = APIRouter(prefix="/alerts", tags=["Alertes et Notifications"])
-data_loader = DataLoader("data/dataset.csv")
 
 @router.get("/", summary="Liste des alertes actives", description="Analyse la dernière lecture de chaque machine et génère des alertes basées sur les seuils calibrés.")
 def get_alerts():

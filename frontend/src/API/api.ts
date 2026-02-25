@@ -1,8 +1,19 @@
 import axios from "axios";
 
 // En production, Vite utilise les variables d'environnement préfixées par VITE_
-// On garde localhost:8000 comme valeur par défaut pour le développement
-const API_URL = import.meta.env.VITE_API_URL || (window.location.hostname === "localhost" ? "http://localhost:8000" : "https://im-hack2026-groupe-6-1.onrender.com/");
+// On nettoie l'URL pour éviter les double slashes
+const getApiUrl = () => {
+    const envUrl = import.meta.env.VITE_API_URL;
+    if (envUrl) return envUrl.replace(/\/$/, "");
+
+    const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    if (isLocal) return "http://localhost:8001";
+
+    // URL de secours pour Render (sans slash final)
+    return "https://im-hack2026-groupe-6-1.onrender.com";
+};
+
+const API_URL = getApiUrl();
 
 export const api = axios.create({
     baseURL: API_URL,

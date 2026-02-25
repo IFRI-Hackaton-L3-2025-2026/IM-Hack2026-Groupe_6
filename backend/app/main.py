@@ -17,6 +17,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"status": "ok", "message": "AI4BMI API is running"}
+
 app.include_router(machines.router)
 app.include_router(factory.router)
 app.include_router(alerts.router)

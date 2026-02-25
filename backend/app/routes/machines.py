@@ -1,10 +1,7 @@
 from fastapi import APIRouter
-from app.services.data_loader import DataLoader
-from app.services.machine_service import MachineService
+from app.shared import data_loader
 
 router = APIRouter(prefix="/machines", tags=["Gestion des Machines"])
-
-data_loader = DataLoader("data/dataset.csv")
 
 @router.get("/", summary="Liste des machines", description="Récupère les dernières données enregistrées pour l'ensemble du parc machine.")
 def get_all_machines():
