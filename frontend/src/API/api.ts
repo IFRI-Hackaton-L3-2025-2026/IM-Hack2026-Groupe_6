@@ -7,7 +7,7 @@ const getApiUrl = () => {
     if (envUrl) return envUrl.replace(/\/$/, "");
 
     const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    if (isLocal) return "http://localhost:8001";
+    if (isLocal) return "http://localhost:8000";
 
     // URL de secours pour Render (sans slash final)
     return "https://im-hack2026-groupe-6-1.onrender.com";

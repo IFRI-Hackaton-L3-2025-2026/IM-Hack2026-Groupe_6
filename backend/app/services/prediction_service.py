@@ -29,8 +29,8 @@ class PredictionService:
         # On va simplifier en prenant les 30 dernières lignes pour la tendance
         last_30_points = machine_df.tail(30)
         
-        indicators = ["temperature", "vibration", "current_mean"]
-        # On s'assure que les colonnes existent (current_mean est dans le csv, temperature et vibration ont été renommées dans DataLoader)
+        indicators = ["temperature", "vibration", "current"]
+        # On s'assure que les colonnes existent (temperature, vibration et current ont été renommées dans DataLoader)
         
         predictions = {}
         for col in indicators:
@@ -74,7 +74,7 @@ class PredictionService:
             "equipement": f"{machine_type} {machine_id} - ID: {machine_id}",
             "temperature_estimee": f"{round(predictions.get('temperature', 0), 1)} °C",
             "vibration_estimee": f"{round(predictions.get('vibration', 0), 1)} mm/s",
-            "courant_estime": f"{round(predictions.get('current_mean', 0), 1)} A",
+            "courant_estime": f"{round(predictions.get('current', 0), 1)} A",
             "statut_estime": statut,
             "niveau_confiance": f"{confiance}%",
             "message": f"⚠️ La date sélectionnée dépasse la plage des données historiques disponibles ({machine_df['timestamp'].min().strftime('%d/%m/%Y')} – {max_date.strftime('%d/%m/%Y')}). Les informations affichées correspondent à une projection prédictive basée sur les tendances observées. Niveau de confiance estimé : {confiance}%"

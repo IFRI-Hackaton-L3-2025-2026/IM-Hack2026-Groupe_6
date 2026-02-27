@@ -12,7 +12,7 @@ Bienvenue sur le dépôt du projet **AI4BMI**, une solution complète de mainten
 | ** Interface Utilisateur (Vercel)** | [Voir le Dashboard Live](https://im-hack2026-groupe-6-fxtxrpzoy-olympblacks-projects.vercel.app/) |
 | ** Documentation API (Render)** | [Accéder à Swagger UI](https://im-hack2026-groupe-6-1.onrender.com/docs) |
 | ** Statut du Backend** | [Vérifier le Service](https://im-hack2026-groupe-6-1.onrender.com/) |
-
+| ** Vidéo démo sur Youtube ** | [Régarder la vidéo démo](https://youtu.be/MUsKffLshkY) |
 ---
 
 ##  Installation & Lancement Local
@@ -33,9 +33,9 @@ python -m venv venv
 pip install -r requirements.txt
 
 # Démarrage du serveur uvicorn
-uvicorn app.main:app --port 8001 --reload
+uvicorn app.main:app --port 8000 --reload
 ```
-*Note : Le serveur sera disponible sur [http://localhost:8001](http://localhost:8001)*
+*Note : Le serveur sera disponible sur [http://localhost:8000](http://localhost:8000)*
 
 ---
 

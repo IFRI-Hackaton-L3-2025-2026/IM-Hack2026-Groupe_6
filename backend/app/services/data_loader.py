@@ -8,6 +8,7 @@ class DataLoader:
         rename_map = {
             "temp_mean": "temperature",
             "vib_mean": "vibration",
+            "current_mean": "current",
             "oil_particle_count": "oil_particles"
         }
         self.df = self.df.rename(columns=rename_map)

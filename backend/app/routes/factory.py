@@ -32,7 +32,7 @@ def get_history(
         )
         if machine_id:
             latest_all = latest_all[latest_all["machine_id"] == machine_id]
-        return latest_all[["machine_id", "machine_type", "timestamp", "temperature", "vibration", "current_mean", "oil_particles", "failure_next_24h"]].to_dict(orient="records")
+        return latest_all[["machine_id", "machine_type", "timestamp", "temperature", "vibration", "current", "oil_particles", "failure_next_24h"]].to_dict(orient="records")
 
     try:
         selected_date = datetime.strptime(date, "%Y-%m-%d")
@@ -75,7 +75,7 @@ def get_history(
         .last()
     )
 
-    return summary[["machine_id", "machine_type", "timestamp", "temperature", "vibration", "current_mean", "oil_particles", "failure_next_24h"]].to_dict(orient="records")
+    return summary[["machine_id", "machine_type", "timestamp", "temperature", "vibration", "current", "oil_particles", "failure_next_24h"]].to_dict(orient="records")
 
 
 # Seuils calibrés sur la distribution réelle du dataset BMI
