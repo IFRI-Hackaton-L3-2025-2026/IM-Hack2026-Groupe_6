@@ -1,7 +1,7 @@
-# AI4BMI - Plateforme de Maintenance Prédictive
+# BMI Factory - Plateforme de Maintenance Prédictive
 # IM-Hack2026-Groupe_6
 
-Bienvenue sur le dépôt du projet **AI4BMI**, une solution complète de maintenance prédictive (Backend + Dashboard) pour l'industrie, développée par le groupe **IM-Hack2026-Groupe_6**.
+Bienvenue sur le dépôt du projet **BMI Factory**, une solution complète de maintenance prédictive (Backend + Dashboard) pour l'industrie, développée par le groupe **IM-Hack2026-Groupe_6**.
 
 ---
 

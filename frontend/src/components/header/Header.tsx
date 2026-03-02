@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ onClick, onToggle }) => {
 
           <Link to="/" className="lg:hidden">
             <span className="text-3xl font-black tracking-tighter text-gray-900 dark:text-white">
-              AI4<span className="text-brand-500">BMI</span>
+              BMI <span className="text-brand-500">Factory</span>
             </span>
           </Link>
 

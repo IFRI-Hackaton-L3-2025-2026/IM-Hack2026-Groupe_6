@@ -251,8 +251,8 @@ const AppSidebar: React.FC = () => {
       >
         <Link to="/" className="flex items-center gap-2">
           {isExpanded || isHovered || isMobileOpen ? (
-            <span className="text-4xl font-black tracking-tighter text-gray-900 dark:text-white">
-              AI4<span className="text-brand-500">BMI</span>
+            <span className="text-2xl font-black tracking-tighter text-gray-900 dark:text-white uppercase">
+              BMI <span className="text-brand-500">Factory</span>
             </span>
           ) : (
             <span className="text-3xl font-black text-brand-500">B</span>

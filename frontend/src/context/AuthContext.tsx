@@ -11,10 +11,10 @@ interface AuthContextType extends AuthState {
 }
 
 // ─── Demo credentials ────────────────────────────────────────────────────────
-const DEMO_EMAIL = "admin@ai4bmi.com";
+const DEMO_EMAIL = "admin@bmifactory.com";
 const DEMO_PASSWORD = "Admin2026!";
 const DEMO_NAME = "Admin BMI";
-const STORAGE_KEY = "ai4bmi_auth";
+const STORAGE_KEY = "bmifactory_auth";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 

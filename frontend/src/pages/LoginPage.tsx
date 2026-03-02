@@ -27,7 +27,7 @@ export default function LoginPage() {
                 {/* Logo */}
                 <div className="text-center mb-8">
                     <h1 className="text-4xl font-black tracking-tighter text-gray-900 dark:text-white">
-                        AI4<span className="text-brand-500">BMI</span>
+                        BMI <span className="text-brand-500">Factory</span>
                     </h1>
                     <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                         Système de maintenance prédictive
@@ -54,7 +54,7 @@ export default function LoginPage() {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="admin@ai4bmi.com"
+                                placeholder="admin@bmifactory.com"
                                 autoComplete="email"
                                 className="h-11 w-full rounded-lg border border-gray-200 bg-transparent px-4 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-800 dark:bg-white/[0.03] dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                             />
@@ -132,7 +132,7 @@ export default function LoginPage() {
                 </div>
 
                 <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-6">
-                    © 2026 AI4BMI · Groupe 6 · IFRI L3
+                    © 2026 BMI Factory · Groupe 6 · IFRI L3
                 </p>
             </div>
         </div>

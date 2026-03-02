@@ -6,8 +6,8 @@ export default function NotFound() {
   return (
     <>
       <PageMeta
-        title="404 - Page Non Trouvée | AI4BMI"
-        description="La page que vous recherchez est introuvable sur la plateforme AI4BMI."
+        title="404 - Page Non Trouvée | BMI Factory"
+        description="La page que vous recherchez est introuvable sur la plateforme BMI Factory."
       />
       <div className="relative flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden z-1">
         <GridShape />
@@ -36,7 +36,7 @@ export default function NotFound() {
         </div>
         {/* <!-- Footer --> */}
         <p className="absolute text-sm text-center text-gray-500 -translate-x-1/2 bottom-6 left-1/2 dark:text-gray-400">
-          &copy; {new Date().getFullYear()} - AI4BMI Intelligence
+          &copy; {new Date().getFullYear()} - BMI Factory Intelligence
         </p>
       </div>
     </>
